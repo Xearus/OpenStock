@@ -14,6 +14,7 @@ import {
 } from "@/lib/constants";
 import { MARKETS, MARKET_COOKIE, getMarket, isMarketOpen, marketForCountry } from "@/lib/markets";
 import { getSession } from "@/lib/better-auth/auth";
+import { widgetsOnly } from "@/lib/market-data";
 
 const scriptUrl = `https://s3.tradingview.com/external-embedding/embed-widget-`;
 
@@ -36,7 +37,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
             <header className="page-head">
                 <div>
                     <h1 className="page-title">Markets</h1>
-                    <p className="page-sub">{market.name} · {open ? 'open now' : 'closed now'} · {market.feed.toLowerCase()} data</p>
+                    <p className="page-sub">{market.name} · {open ? 'open now' : 'closed now'} · {widgetsOnly ? 'check each widget for data delay' : `${market.feed.toLowerCase()} data`}</p>
                 </div>
             </header>
 
@@ -46,7 +47,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
                 <div className="section-head">
                     <div>
                         <h2 className="section-title">Pulse</h2>
-                        <p className="section-sub">{native ? 'Our shared quotes via Finnhub' : `${market.feed} quotes via TradingView`}</p>
+                        <p className="section-sub">{native ? 'Our shared quotes via Finnhub' : 'Quotes via TradingView · exchange-dependent delays'}</p>
                     </div>
                     {native && <DataFreshness />}
                 </div>

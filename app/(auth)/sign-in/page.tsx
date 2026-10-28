@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import OpenDevSocietyBranding from "@/components/OpenDevSocietyBranding";
 import SocialAuthButtons from "@/components/forms/SocialAuthButtons";
 import React from "react";
+import { widgetsOnly } from "@/lib/market-data";
 
 const SignIn = () => {
     const router = useRouter()
@@ -20,7 +21,7 @@ const SignIn = () => {
         formState: { errors, isSubmitting },
     } = useForm<SignInFormData>({
         defaultValues: {
-            email: '',
+            email: widgetsOnly ? 'local@openstock.local' : '',
             password: '',
         },
         mode: 'onBlur',
@@ -47,9 +48,9 @@ const SignIn = () => {
     return (
         <>
             <h1 className="form-title mb-2">Welcome back</h1>
-            <p className="mb-8 text-faint">Sign in to your watchlist and alerts.</p>
+            <p className="mb-8 text-faint">{widgetsOnly ? 'Your local market dashboard. Sign in once; this browser stays signed in for 30 days.' : 'Sign in to your watchlist and alerts.'}</p>
 
-            <SocialAuthButtons />
+            {!widgetsOnly && <SocialAuthButtons />}
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 <InputField
@@ -77,17 +78,17 @@ const SignIn = () => {
                     validation={{ required: 'Password is required', minLength: 8 }}
                 />
 
-                <div className="flex justify-end">
+                {!widgetsOnly && <div className="flex justify-end">
                     <Link href="/forgot-password" className="footer-link text-sm">
                         Forgot password?
                     </Link>
-                </div>
+                </div>}
 
                 <Button type="submit" disabled={isSubmitting} className="yellow-btn w-full mt-5">
                     {isSubmitting ? 'Signing In' : 'Sign In'}
                 </Button>
 
-                <FooterLink text="Don't have an account?" linkText="Create an account" href="/sign-up" />
+                {!widgetsOnly && <FooterLink text="Don't have an account?" linkText="Create an account" href="/sign-up" />}
                 <OpenDevSocietyBranding outerClassName="mt-10 flex justify-center" />
             </form>
         </>

@@ -8,6 +8,7 @@ import { formatNumber, formatPrice, formatSymbolForTradingView } from "@/lib/uti
 import { hasFinnhubQuotes } from "@/lib/markets";
 import { symbolInfoConfig } from "@/lib/constants";
 import TradingViewWidget from "@/components/TradingViewWidget";
+import { widgetsOnly } from "@/lib/market-data";
 
 // Symbols Finnhub's free plan can't price (most non-US listings) use TradingView's quote panel instead.
 async function TradingViewHeader({ symbol }: { symbol: string }) {
@@ -22,9 +23,9 @@ async function TradingViewHeader({ symbol }: { symbol: string }) {
                 </div>
                 <div className="flex items-center gap-2">
                     <WatchlistButton symbol={symbol} company={symbol} isInWatchlist={isInWatchlist} />
-                    <span className="pill h-9 px-3" title="Price alerts need a quote source we can check every 5 minutes">
+                    {!widgetsOnly && <span className="pill h-9 px-3" title="Price alerts need a quote source we can check every 5 minutes">
                         <Bell /> Alerts: US stocks and crypto
-                    </span>
+                    </span>}
                 </div>
             </div>
             <div className="card mt-[3px] p-1">

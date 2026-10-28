@@ -4,6 +4,7 @@ import AppShell from "@/components/shell/AppShell";
 import DonatePopup from "@/components/DonatePopup";
 import { searchStocks } from "@/lib/actions/finnhub.actions";
 import { getUserWatchlist } from "@/lib/actions/watchlist.actions";
+import { widgetsOnly } from "@/lib/market-data";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
     const session = await getSession();
@@ -30,7 +31,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
             >
                 {children}
             </AppShell>
-            <DonatePopup />
+            {!widgetsOnly && <DonatePopup />}
         </>
     )
 }

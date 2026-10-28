@@ -60,7 +60,7 @@ export default function StockChart({ tvSymbol, scriptUrl }: { tvSymbol: string; 
     );
 
     return (
-        <Panel title="Chart" sub="Live from TradingView · switch interval and style in the chart" action={menu}>
+        <Panel title="Chart" sub="TradingView · choose 1Y / 5Y below · exchange-dependent delays" action={menu}>
             {studies ? (
                 <TradingViewWidget scriptUrl={scriptUrl} config={{ ...CANDLE_CHART_WIDGET_CONFIG(tvSymbol), studies }} height={CHART_HEIGHT} allowExpand />
             ) : (

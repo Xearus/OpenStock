@@ -5,6 +5,7 @@ import {nextCookies} from "better-auth/next-js";
 import { headers } from "next/headers";
 import { cache } from "react";
 import { sendPasswordResetEmail } from "@/lib/nodemailer/reset-password";
+import { widgetsOnly } from "@/lib/market-data";
 
 
 type MongoDb = Parameters<typeof mongodbAdapter>[0];
@@ -25,7 +26,7 @@ const createAuth = (database: MongoDb) => betterAuth({
         },
         emailAndPassword: {
             enabled: true,
-            disableSignUp: false,
+            disableSignUp: widgetsOnly,
             requireEmailVerification: false,
             minPasswordLength: 8,
             maxPasswordLength: 128,
@@ -45,6 +46,7 @@ const createAuth = (database: MongoDb) => betterAuth({
         // Signed session cookie for 5 min: pages stop paying a MongoDB round trip per request.
         // Trade-off: a revoked session can stay valid for up to 5 minutes.
         session: {
+            ...(widgetsOnly ? { expiresIn: 30 * 24 * 60 * 60, updateAge: 24 * 60 * 60 } : {}),
             cookieCache: { enabled: true, maxAge: 5 * 60 },
         },
         // No account linking. Sign-up doesn't verify emails, so linking a Google/GitHub identity to an

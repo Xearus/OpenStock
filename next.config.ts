@@ -2,9 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
     devIndicators: false,
+    experimental: { cpus: 2 },
     // /whats-new was live briefly before the changelog replaced it
     async redirects() {
-        return [{ source: '/whats-new', destination: '/changelog', permanent: true }];
+        return [
+            ...(process.env.NEXT_PUBLIC_OPENSTOCK_WIDGETS_ONLY === 'true'
+                ? [{ source: '/', destination: '/dashboard', permanent: false }]
+                : []),
+            { source: '/whats-new', destination: '/changelog', permanent: true },
+        ];
     },
     turbopack: {
         root: process.cwd(),

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { isRealtime } from "@/lib/market-data";
+import { isRealtime, widgetsOnly } from "@/lib/market-data";
 
 // Honest label for how old a number is: "Live" in realtime mode, otherwise the time of the last trade.
 // The time is formatted after mount, in the viewer's own time zone, so server and browser never disagree.
@@ -14,6 +14,7 @@ const DataFreshness = ({ tradeTime }: { tradeTime?: number }) => {
             : null);
     }, [tradeTime]);
 
+    if (widgetsOnly) return <span className="text-[12px] text-faint">TradingView · exchange-dependent delay</span>;
     if (isRealtime) {
         return <span className="inline-flex items-center gap-1.5 text-[12px] text-faint"><span className="live-dot" /> Live · 15s</span>;
     }

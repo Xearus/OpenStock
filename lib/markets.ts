@@ -6,6 +6,7 @@
 // Adding a market = adding an entry here with symbols from an exchange that renders in embeds.
 
 import { isInternationalSymbol } from "@/lib/utils";
+import { widgetsOnly } from "@/lib/market-data";
 
 export type MarketId = 'us' | 'in' | 'de' | 'ca' | 'au' | 'crypto' | 'fx';
 
@@ -136,13 +137,19 @@ export const MARKETS: Market[] = [
 export const DEFAULT_MARKET: MarketId = 'us';
 export const MARKET_COOKIE = 'openstock-market';
 
-export const getMarket = (id?: string | null) => MARKETS.find((m) => m.id === id) ?? MARKETS[0];
+export const getMarket = (id?: string | null): Market => {
+    const market = MARKETS.find((m) => m.id === id) ?? MARKETS[0];
+    return widgetsOnly
+        ? { ...market, pulse: market.pulse.map(({ symbol, label }) => ({ symbol, label })) }
+        : market;
+};
 
 const COUNTRY_MARKET: Record<string, MarketId> = { IN: 'in', DE: 'de', CA: 'ca', AU: 'au' };
 export const marketForCountry = (country?: string | null): MarketId => COUNTRY_MARKET[country ?? ''] ?? DEFAULT_MARKET;
 
 // Finnhub free can price (and so alert on) US listings and Binance pairs only.
 export const hasFinnhubQuotes = (symbol: string) => {
+    if (widgetsOnly) return false;
     const upper = symbol.toUpperCase();
     if (upper.startsWith('BINANCE:')) return true;
     return !upper.includes(':') && !isInternationalSymbol(upper);

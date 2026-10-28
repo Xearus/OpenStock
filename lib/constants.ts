@@ -150,7 +150,8 @@ export const CANDLE_CHART_WIDGET_CONFIG = (symbol: string) => ({
     backgroundColor: '#1f1e1a', // --card
     gridColor: 'rgba(255, 255, 255, 0.04)',
     watchlist: [],
-    withdateranges: false,
+    withdateranges: true,
+    range: '12M',
     compareSymbols: [],
     studies: [],
     width: '100%',

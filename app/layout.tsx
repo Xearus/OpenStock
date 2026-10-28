@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import {Toaster} from "@/components/ui/sonner";
 import OntoLaunchCard from "@/components/OntoLaunchCard";
 import "./globals.css";
+import { widgetsOnly } from "@/lib/market-data";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -33,8 +34,8 @@ export default function RootLayout({
             >
                 {children}
                 <Toaster/>
-                <OntoLaunchCard />
-                <Analytics />
+                {!widgetsOnly && <OntoLaunchCard />}
+                {!widgetsOnly && <Analytics />}
             </body>
         </html>
     );

@@ -3,9 +3,10 @@
 import { getDateRange, validateArticle, formatArticle } from '@/lib/utils';
 import { POPULAR_STOCKS } from '@/lib/constants';
 import { cache } from 'react';
-import { QUOTE_TTL_SECONDS } from '@/lib/market-data';
+import { QUOTE_TTL_SECONDS, widgetsOnly } from '@/lib/market-data';
 import { hasFinnhubQuotes } from '@/lib/markets';
 import { getSession } from '@/lib/better-auth/auth';
+import { searchLocalStocks } from '@/lib/local-market-search';
 
 const FINNHUB_BASE_URL = 'https://finnhub.io/api/v1';
 // Key pool: each free key has its own 60 req/min, so N keys = N x the quota. Rotated per request.
@@ -325,6 +326,10 @@ export async function getNews(symbols?: string[]): Promise<MarketNewsArticle[]> 
 
 export const searchStocks = cache(async (query?: string): Promise<StockWithWatchlistStatus[]> => {
     try {
+        if (widgetsOnly) {
+            if (query?.trim() && !(await getSession())?.user) return [];
+            return searchLocalStocks(query);
+        }
         if (FINNHUB_KEYS.length === 0) {
             // If no token, log and return empty to avoid throwing per requirements
             console.error('Error in stock search:', new Error('FINNHUB API key is not configured'));

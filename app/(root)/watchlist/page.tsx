@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Plus } from 'lucide-react';
 import { getUserWatchlist } from '@/lib/actions/watchlist.actions';
 import { getUserAlerts } from '@/lib/actions/alert.actions';
-import { alertsEnabled } from '@/lib/market-data';
+import { alertsEnabled, widgetsOnly } from '@/lib/market-data';
 import { getNews, getWatchlistData } from '@/lib/actions/finnhub.actions';
 import WatchlistTable from '@/components/watchlist/WatchlistTable';
 import AlertsPanel from '@/components/watchlist/AlertsPanel';
@@ -10,6 +10,8 @@ import NewsList from '@/components/watchlist/NewsList';
 import Panel from '@/components/Panel';
 import DataFreshness from '@/components/DataFreshness';
 import { SearchButton } from '@/components/SearchCommand';
+import TradingViewWidget from '@/components/TradingViewWidget';
+import { timelineConfig } from '@/lib/constants';
 
 const RowsSkeleton = ({ rows = 4 }: { rows?: number }) => (
     <div className="row-list" aria-busy="true">
@@ -49,23 +51,27 @@ export default async function WatchlistPage() {
                 <SearchButton className="btn btn-primary"><Plus /> Add symbol</SearchButton>
             </header>
 
-            <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_minmax(300px,360px)]">
+            <div className={widgetsOnly ? 'flex flex-col gap-3' : 'grid gap-3 xl:grid-cols-[minmax(0,1fr)_minmax(300px,360px)]'}>
                 <div className="flex min-w-0 flex-col gap-3">
                     <Panel title="Symbols" sub="Click a row for charts, technicals and financials">
                         <Suspense fallback={<RowsSkeleton rows={Math.max(1, Math.min(symbols.length, 6))} />}>
                             <Symbols symbols={symbols} />
                         </Suspense>
                     </Panel>
-                    <Panel title="News" sub={symbols.length ? 'Latest stories for the symbols you watch' : 'General market news'}>
-                        <Suspense fallback={<RowsSkeleton />}>
+                    <Panel title="News" sub={!widgetsOnly && symbols.length ? 'Latest stories for the symbols you watch' : 'General market news'}>
+                        {widgetsOnly ? <TradingViewWidget
+                            scriptUrl="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
+                            config={timelineConfig('stock')}
+                            height={560}
+                        /> : <Suspense fallback={<RowsSkeleton />}>
                             <News symbols={symbols} />
-                        </Suspense>
+                        </Suspense>}
                     </Panel>
                 </div>
 
-                <Panel title="Alerts" sub={alertsEnabled ? `${activeAlerts} active · checked every 5 minutes` : 'An OpenStock Cloud feature'} className="self-start">
+                {!widgetsOnly && <Panel title="Alerts" sub={alertsEnabled ? `${activeAlerts} active · checked every 5 minutes` : 'An OpenStock Cloud feature'} className="self-start">
                     <AlertsPanel alerts={alerts} />
-                </Panel>
+                </Panel>}
             </div>
         </>
     );

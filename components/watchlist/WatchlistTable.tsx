@@ -9,9 +9,12 @@ import ChangePill from "@/components/ChangePill";
 import PriceFlash from "@/components/PriceFlash";
 import { useLiveQuotes } from "@/hooks/useLiveQuotes";
 import { SearchButton } from "@/components/SearchCommand";
-import { formatNumber, formatPrice } from "@/lib/utils";
+import { formatNumber, formatPrice, formatSymbolForTradingView } from "@/lib/utils";
 import { hasFinnhubQuotes } from "@/lib/markets";
 import type { getWatchlistData } from "@/lib/actions/finnhub.actions";
+import { widgetsOnly } from "@/lib/market-data";
+import { marketQuotesConfig } from "@/lib/constants";
+import TradingViewWidget from "@/components/TradingViewWidget";
 
 type Row = Awaited<ReturnType<typeof getWatchlistData>>[number];
 const SUGGESTIONS = ['AAPL', 'NVDA', 'MSFT', 'TSLA', 'AMZN'];
@@ -45,15 +48,23 @@ export default function WatchlistTable({ initialRows }: { initialRows: Row[] }) 
     }
 
     return (
+        <>
+        {widgetsOnly && <TradingViewWidget
+            scriptUrl="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js"
+            config={marketQuotesConfig([{ title: 'Watchlist', symbols: rows.map((row) => [formatSymbolForTradingView(row.symbol), row.name]) }])}
+            height={Math.min(700, Math.max(220, rows.length * 52 + 100))}
+        />}
         <div className="overflow-x-auto rounded-[14px]">
             <table className="data-table">
                 <thead>
                     <tr>
                         <th>Company</th>
+                        {!widgetsOnly && <>
                         <th className="is-num">Price</th>
                         <th className="is-num">Today</th>
                         <th className="is-num">Change</th>
                         <th className="is-num">Market cap</th>
+                        </>}
                         <th className="w-[88px]"><span className="sr-only">Actions</span></th>
                     </tr>
                 </thead>
@@ -73,12 +84,13 @@ export default function WatchlistTable({ initialRows }: { initialRows: Row[] }) 
                                     </span>
                                 </Link>
                             </td>
-                            <td className="is-num font-semibold text-foreground">
+                            {!widgetsOnly && <><td className="is-num font-semibold text-foreground">
                                 <PriceFlash value={row.price} className="px-1">{row.price ? formatPrice(row.price, row.currency) : '—'}</PriceFlash>
                             </td>
                             <td className="is-num"><ChangePill value={row.price ? row.changePercent : null} /></td>
                             <td className="is-num text-muted-foreground">{row.price ? `${row.change > 0 ? '+' : ''}${row.change.toFixed(2)}` : '—'}</td>
                             <td className="is-num text-muted-foreground">{row.marketCap ? formatNumber(row.marketCap) : '—'}</td>
+                            </>}
                             <td>
                                 <div className="flex items-center justify-end gap-1">
                                     {hasFinnhubQuotes(row.symbol) ? (
@@ -87,9 +99,9 @@ export default function WatchlistTable({ initialRows }: { initialRows: Row[] }) 
                                                 <Bell />
                                             </button>
                                         </CreateAlertModal>
-                                    ) : (
+                                    ) : !widgetsOnly ? (
                                         <span className="icon-btn opacity-40" title="Alerts are available for US stocks and crypto"><Bell /></span>
-                                    )}
+                                    ) : null}
                                     <WatchlistButton
                                         symbol={row.symbol}
                                         company={row.name}
@@ -106,5 +118,6 @@ export default function WatchlistTable({ initialRows }: { initialRows: Row[] }) 
                 </tbody>
             </table>
         </div>
+        </>
     );
 }

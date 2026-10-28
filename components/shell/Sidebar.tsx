@@ -8,6 +8,8 @@ import { openSearch } from "@/components/SearchCommand";
 import { signOut } from "@/lib/actions/auth.actions";
 import { cn } from "@/lib/utils";
 import { SIDEBAR_SPONSOR_SLOTS, sidebarSponsors } from "@/lib/sponsors";
+import { widgetsOnly } from "@/lib/market-data";
+import { SPONSOR_URL } from "@/lib/constants";
 
 type SidebarProps = {
     user: User;
@@ -84,7 +86,9 @@ const Sidebar = ({ user, watchlist }: SidebarProps) => {
                 ))}
                 <button
                     type="button"
-                    onClick={() => window.dispatchEvent(new CustomEvent('open-donate-popup'))}
+                    onClick={() => widgetsOnly
+                        ? window.open(SPONSOR_URL, '_blank', 'noopener,noreferrer')
+                        : window.dispatchEvent(new CustomEvent('open-donate-popup'))}
                     className="side-item h-8 text-left"
                 >
                     <Heart /> Support OpenStock

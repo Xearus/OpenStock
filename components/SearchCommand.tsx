@@ -6,6 +6,7 @@ import { ArrowUpRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { searchStocks } from "@/lib/actions/finnhub.actions";
 import { useDebounce } from "@/hooks/useDebounce";
+import { widgetsOnly } from "@/lib/market-data";
 
 const OPEN_SEARCH_EVENT = 'open-search';
 
@@ -75,7 +76,7 @@ export default function SearchCommand({ initialStocks }: { initialStocks: StockW
     return (
         <CommandDialog open={open} onOpenChange={setOpen} className="search-dialog">
             <div className="search-field">
-                <CommandInput value={searchTerm} onValueChange={setSearchTerm} placeholder="Search by company or symbol" className="search-input" />
+                <CommandInput value={searchTerm} onValueChange={setSearchTerm} placeholder={widgetsOnly ? 'Company or ticker, e.g. AAPL or TSX:RY' : 'Search by company or symbol'} className="search-input" />
                 {loading && <Loader2 className="search-loader" />}
             </div>
             <CommandList className="search-list">

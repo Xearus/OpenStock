@@ -9,7 +9,7 @@ vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
 vi.mock('@/database/mongoose', () => ({ connectToDatabase: vi.fn().mockResolvedValue({}) }));
 // Alerts are an OpenStock Cloud feature; most tests run with it on
 const flags = { alertsEnabled: true };
-vi.mock('@/lib/market-data', () => ({ get alertsEnabled() { return flags.alertsEnabled; } }));
+vi.mock('@/lib/market-data', () => ({ widgetsOnly: false, get alertsEnabled() { return flags.alertsEnabled; } }));
 
 const findOneAndDelete = vi.fn();
 const create = vi.fn();

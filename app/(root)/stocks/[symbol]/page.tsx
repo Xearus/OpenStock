@@ -13,6 +13,7 @@ import {
 import { getStockSentimentInsights } from '@/lib/actions/adanos.actions';
 import { getStockMetrics } from '@/lib/actions/finnhub.actions';
 import { formatSymbolForTradingView, isChartEmbeddable, tradingViewSymbolUrl } from '@/lib/utils';
+import { widgetsOnly } from '@/lib/market-data';
 
 const scriptUrl = `https://s3.tradingview.com/external-embedding/embed-widget-`;
 
@@ -85,9 +86,9 @@ export default async function StockDetails({ params }: StockDetailsPageProps) {
                             height={400}
                         />
                     </Panel>
-                    <Suspense fallback={null}>
+                    {!widgetsOnly && <Suspense fallback={null}>
                         <DividendYield symbol={symbol} />
-                    </Suspense>
+                    </Suspense>}
                     <Suspense fallback={null}>
                         <Sentiment symbol={symbol} />
                     </Suspense>
