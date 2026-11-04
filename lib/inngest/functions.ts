@@ -170,7 +170,7 @@ export const sendWeeklyNewsSummary = inngest.createFunction(
                                                 <p style="margin: 0;">
                                                     <a href="{{ unsubscribe_url }}" style="color: #20c997; text-decoration: underline;">Unsubscribe</a>
                                                     <span style="margin: 0 10px;">•</span>
-                                                    <a href="https://openstock-ods.vercel.app" style="color: #20c997; text-decoration: underline;">Visit OpenStock</a>
+                                                    <a href="https://openstock.ravixalgorithm.workers.dev" style="color: #20c997; text-decoration: underline;">Visit OpenStock</a>
                                                 </p>
                                                 <p style="margin: 20px 0 0 0; font-size: 12px;">&copy; ${new Date().getFullYear()} OpenStock</p>
                                             </td>

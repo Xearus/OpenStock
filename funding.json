@@ -18,7 +18,7 @@
       "name": "OpenStock",
       "description": "OpenStock is a free, open-source alternative to expensive market platforms. People track prices, set personalised alerts, watch the whole market and dig into company insights without a paywall. It runs as a free hosted community instance (13,000+ registered users) and can be self-hosted with every feature.\n\nThe repository has 20,000+ GitHub stars and 2,500+ forks, and every merged pull request is credited on the public changelog.\n\nFunding would pay for maintainer time (reviewing community pull requests, fixing bugs, shipping releases), hosting and the database for the community instance, and properly licensed market data so the free hosted app stays sustainable.",
       "webpageUrl": {
-        "url": "https://openstock-ods.vercel.app"
+        "url": "https://openstock.ravixalgorithm.workers.dev"
       },
       "repositoryUrl": {
         "url": "https://github.com/Open-Dev-Society/OpenStock",
@@ -57,7 +57,7 @@
         "guid": "community-sponsor",
         "status": "active",
         "name": "Community sponsorship",
-        "description": "Sponsor tiers from $5 a month (Backer) to $500 a month (Partner). Details at https://openstock-ods.vercel.app/sponsor",
+        "description": "Sponsor tiers from $5 a month (Backer) to $500 a month (Partner). Details at https://openstock.ravixalgorithm.workers.dev/sponsor",
         "amount": 0,
         "currency": "USD",
         "frequency": "monthly",

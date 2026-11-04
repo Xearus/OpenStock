@@ -25,11 +25,11 @@
 </p>
 <div align="center">
   <br />
-  <a href="https://openstock-ods.vercel.app"><img src="./public/assets/images/dashboard.png" alt="OpenStock: the landing page with the market hours dial, index pulse and live charts" /></a>
+  <a href="https://openstock.ravixalgorithm.workers.dev"><img src="./public/assets/images/dashboard.png" alt="OpenStock: the landing page with the market hours dial, index pulse and live charts" /></a>
   <br />
   <br />
 
-  **[Open OpenStock](https://openstock-ods.vercel.app)** · [Changelog](https://openstock-ods.vercel.app/changelog) · [Self-host it](#self-hosting) · [Sponsor](#sponsors) · [Discord](https://discord.gg/JkJ8kfxgxB)
+  **[Open OpenStock](https://openstock.ravixalgorithm.workers.dev)** · [Changelog](https://openstock.ravixalgorithm.workers.dev/changelog) · [Self-host it](#self-hosting) · [Sponsor](#sponsors) · [Discord](https://discord.gg/JkJ8kfxgxB)
 
   <br />
 
@@ -50,7 +50,7 @@
 
 # OpenStock
 
-**Markets, minus the paywall.** OpenStock is a free, open-source alternative to expensive market platforms: track prices, watch the whole market and dig into company insights. Use it at [openstock-ods.vercel.app](https://openstock-ods.vercel.app), or run your own copy with every feature.
+**Markets, minus the paywall.** OpenStock is a free, open-source alternative to expensive market platforms: track prices, watch the whole market and dig into company insights. Use it at [openstock.ravixalgorithm.workers.dev](https://openstock.ravixalgorithm.workers.dev), or run your own copy with every feature.
 
 > ❤️ **13,000+ people use OpenStock for free.** Help keep it that way: [sponsor from $5 a month](https://github.com/sponsors/ravixalgorithm/sponsorships?frequency=recurring&amount=5), or read [how OpenStock is funded](#sponsors).
 
@@ -99,7 +99,7 @@
 - Rate-limited sign-in, sign-up and password reset; resetting your password signs out your other devices.
 
 **Community**
-- A [changelog](https://openstock-ods.vercel.app/changelog) that credits everyone who contributed, a [Wall of love](https://openstock-ods.vercel.app/love), and an update banner in the app.
+- A [changelog](https://openstock.ravixalgorithm.workers.dev/changelog) that credits everyone who contributed, a [Wall of love](https://openstock.ravixalgorithm.workers.dev/love), and an update banner in the app.
 
 ## ⏱️ How fresh is the data <a name="data-freshness"></a>
 
@@ -107,7 +107,7 @@ Charts always stream live from TradingView. Quotes, watchlist prices and alerts 
 
 | | Quotes | Price alerts | Cost |
 |---|---|---|---|
-| **Community**: [openstock-ods.vercel.app](https://openstock-ods.vercel.app) | Every hour, shared by everyone | No | Free |
+| **Community**: [openstock.ravixalgorithm.workers.dev](https://openstock.ravixalgorithm.workers.dev) | Every hour, shared by everyone | No | Free |
 | **OpenStock Cloud** (coming soon) | Every 15 seconds | By email | $5 a month |
 | **Self-hosted** | Every hour, or every 15 seconds with `NEXT_PUBLIC_OPENSTOCK_DATA_MODE=realtime` and your own Finnhub keys | By email, in realtime mode | Free |
 
@@ -293,11 +293,11 @@ You belong here. Whether you're a student, a self-taught dev or a seasoned engin
 3. Keep the pull request focused: a test for new logic, a screenshot for UI changes.
 4. Before you open it, run `npm test`, `npx tsc --noEmit` and `npm run lint`.
 
-Every merged pull request, and every issue that leads to a fix, is credited on the [changelog](https://openstock-ods.vercel.app/changelog) and below. Be kind, guide beginners, no gatekeeping: that's the Open Dev Society way. Participation is covered by the [Code of Conduct](CODE_OF_CONDUCT.md).
+Every merged pull request, and every issue that leads to a fix, is credited on the [changelog](https://openstock.ravixalgorithm.workers.dev/changelog) and below. Be kind, guide beginners, no gatekeeping: that's the Open Dev Society way. Participation is covered by the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## 🏆 Contributors <a name="contributors"></a>
 
-OpenStock is built by everyone below: the people who wrote the code and the people whose issues led to a fix. Every release, and who made it happen, is on the [changelog](https://openstock-ods.vercel.app/changelog#contributors).
+OpenStock is built by everyone below: the people who wrote the code and the people whose issues led to a fix. Every release, and who made it happen, is on the [changelog](https://openstock.ravixalgorithm.workers.dev/changelog#contributors).
 
 [@ravixalgorithm](https://github.com/ravixalgorithm) founded and maintains OpenStock, and built it from the ground up: authentication, UI design, API and AI integration, and deployment.
 
@@ -409,7 +409,7 @@ OpenStock is free, open source and used by **13,000+ registered people**. Keepin
 | [Company](https://github.com/sponsors/ravixalgorithm/sponsorships?frequency=recurring&amount=100) | $100 | Your logo in the footer of every public page, in this README and on the sponsor page |
 | [Partner](https://github.com/sponsors/ravixalgorithm/sponsorships?frequency=recurring&amount=500) | $500 | One of three sponsor slots in the app sidebar, seen by 13,000+ registered users, plus your logo on the landing page |
 
-Rather give once? [Make a one-time gift](https://github.com/sponsors/ravixalgorithm/sponsorships?frequency=one-time). Want an invoice or a custom partnership? [Talk with us](mailto:opendevsociety@gmail.com?subject=Sponsoring%20OpenStock). Everything, including where the money goes, is on the [sponsor page](https://openstock-ods.vercel.app/sponsor).
+Rather give once? [Make a one-time gift](https://github.com/sponsors/ravixalgorithm/sponsorships?frequency=one-time). Want an invoice or a custom partnership? [Talk with us](mailto:opendevsociety@gmail.com?subject=Sponsoring%20OpenStock). Everything, including where the money goes, is on the [sponsor page](https://openstock.ravixalgorithm.workers.dev/sponsor).
 
 Sponsorships are paid through GitHub Sponsors to [@ravixalgorithm](https://github.com/ravixalgorithm) (Ravi Pratap Singh, founder of Open Dev Society).
 
